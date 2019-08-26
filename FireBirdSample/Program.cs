@@ -34,11 +34,11 @@ namespace FireBirdSample
             {
                 
                 var cmd = new FbCommand("select * from USERS;", myConnection1);
-                var dr = cmd.ExecuteReader();
+                FbDataReader dr = cmd.ExecuteReader(); // DataReader
 
                 while (dr.Read())
                 {
-                  Console.WriteLine("ID:"+ dr.GetString(0)+" Name:"+ dr.GetString(1));  
+                  Console.WriteLine("ID:"+ dr.GetValue(0).ToString()+" Name:"+ dr.GetString(1));  
                 }
                 dr.Close();
             }
