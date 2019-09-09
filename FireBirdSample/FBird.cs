@@ -40,7 +40,7 @@ namespace FireBirdSample
                 };
 
                 read_transaction = conn.BeginTransaction(tro);
-                
+                return read_transaction;
             }
             else
             {
@@ -56,16 +56,16 @@ namespace FireBirdSample
                 };
                 
                 write_transaction = conn.BeginTransaction(tro);
-                
+                return write_transaction;
 
             }
-            return write_transaction ?? read_transaction;
+            
         }
 
         public FbDataReader Select(string sql)
         {
             
-            var cmd = new FbCommand(sql, conn, GetTransaction());
+            var cmd = new FbCommand(sql, conn , GetTransaction());
             
             return cmd.ExecuteReader(); // DataReader
         }
@@ -89,7 +89,7 @@ namespace FireBirdSample
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            conn.Close();
         }
     }
 }

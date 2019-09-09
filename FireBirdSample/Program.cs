@@ -67,7 +67,16 @@ namespace FireBirdSample
                 INSERT INTO USERS(NAME, PSW, LEVEL, ONLINE, CURRVERSION, ROLE_NAME, USER_NAME, PSW_USER, IP) 
               VALUES('Каруна Т.П.', '123345', 1, 0, NULL, 'R', 'READER', '123', '192.168.2.40'); ", ref tr, true);
 
-                    Console.WriteLine("Добалено {0} записей!", col); 
+                    Console.WriteLine("Добавлено {0} записей!", col);
+
+                    dr = fb.Select("select * from USERS;");
+
+                    while (dr.Read())
+                    {
+                        Console.WriteLine("ID:" + dr.GetValue(0).ToString() + " Name:" + dr.GetString(1));
+                    }
+
+                    dr.Close();
                     #endregion
                 }
                 finally
